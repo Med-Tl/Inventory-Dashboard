@@ -69,19 +69,19 @@ Developer → GitHub → Jenkins → Maven Build & Tests
 
 ![SonarQube](images/sonarqube2.png)
 
-### ✅ Inventory Dashboard
+### ✅ Inventory Dashboard /inv
 
 ![Inv](images/inv2.png)
 
-### ✅ Grafana Monitoring Dashboard
+### ✅ Inventory Dashboard /inv/dashboard
 
 ![Dashboard](images/dashboard2.png)
 
-### ✅ Grafana Monitoring Dashboard
+### ✅ Inventory Dashboard /inv/products
 
 ![Products](images/products2.png)
 
-### ✅ Grafana Monitoring Dashboard
+### ✅ Inventory Dashboard /inv/sales
 
 ![Sales](images/sales2.png)
 

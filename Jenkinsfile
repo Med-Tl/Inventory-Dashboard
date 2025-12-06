@@ -46,7 +46,7 @@ pipeline {
 
         stage('Check Application') {
             steps {
-                sh 'curl -f http://192.168.142.130:8081/inv/'
+                sh 'curl -f http://192.168.142.130:8085/inv/'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 sh '''
                     zap-baseline.py \
-                        -t http://192.168.142.130:8081/inv \
+                        -t http://192.168.142.130:8085/inv \
                         -r zap_report.html \
                         || true
                 '''

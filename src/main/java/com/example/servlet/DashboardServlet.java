@@ -1,6 +1,6 @@
 package com.example.servlet;
 import com.example.dao.ProductDAO; import com.example.dao.SaleDAO;
-import jakarta.servlet.*; import jakarta.servlet.http.*; import jakarta.servlet.annotation.*;
+import javax.servlet.*; import javax.servlet.http.*; import javax.servlet.annotation.*;
 import java.io.IOException;
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {

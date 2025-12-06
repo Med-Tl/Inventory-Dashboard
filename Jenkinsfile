@@ -37,7 +37,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 sh '''
-                    sudo cp target/*.war /var/lib/tomcat/webapps/inv.war
+                    sudo cp target/*.war /opt/tomcat/webapps/inv.war
                     sudo systemctl restart tomcat
                     sleep 10
                 '''

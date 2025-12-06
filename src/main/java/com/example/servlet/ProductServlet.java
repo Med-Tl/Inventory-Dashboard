@@ -1,37 +1,20 @@
 package com.example.servlet;
-
-import com.example.dao.ProductDAO;
-import com.example.model.Product;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.dao.ProductDAO; import com.example.model.Product;
+import jakarta.servlet.*; import jakarta.servlet.http.*; import jakarta.servlet.annotation.*;
 import java.io.IOException;
-
-@WebServlet("/product")
+@WebServlet("/products")
 public class ProductServlet extends HttpServlet {
-
-    private final ProductDAO dao = new ProductDAO();
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        req.setAttribute("products", dao.getAllProducts());
-        req.getRequestDispatcher("product.jsp").forward(req, resp);
+    ProductDAO productDAO = new ProductDAO();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("products", productDAO.getAllProducts());
+        request.getRequestDispatcher("/product.jsp").forward(request,response);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        String name = req.getParameter("name");
-        int quantity = Integer.parseInt(req.getParameter("quantity"));
-
-        dao.addProduct(new Product(name, quantity));
-
-        resp.sendRedirect("product");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name=request.getParameter("name");
+        int quantity=Integer.parseInt(request.getParameter("quantity"));
+        double price=Double.parseDouble(request.getParameter("price"));
+        productDAO.addProduct(new Product(0,name,quantity,price));
+        response.sendRedirect("products");
     }
 }
 

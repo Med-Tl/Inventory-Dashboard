@@ -4,5 +4,37 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
                              https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
     <display-name>DevOps Inventory App</display-name>
+
+    <!-- DashboardServlet -->
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>com.example.servlet.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- ProductServlet -->
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.example.servlet.ProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+
+    <!-- SaleServlet -->
+    <servlet>
+        <servlet-name>SaleServlet</servlet-name>
+        <servlet-class>com.example.servlet.SaleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SaleServlet</servlet-name>
+        <url-pattern>/sale</url-pattern>
+    </servlet-mapping>
+
 </web-app>

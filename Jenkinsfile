@@ -37,7 +37,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 sh '''
-                    sudo cp target/*.war /var/lib/tomcat9/webapps/inventory-dashboard.war
+                    sudo cp target/*.war /var/lib/tomcat9/webapps/inv.war
                     sudo systemctl restart tomcat9
                     sleep 10
                 '''
@@ -46,7 +46,7 @@ pipeline {
 
         stage('Check Application') {
             steps {
-                sh 'curl -f http://192.168.142.130:8081/inventory-dashboard'
+                sh 'curl -f http://192.168.142.130:8081/inv'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 sh '''
                     zap-baseline.py \
-                        -t http://192.168.142.130:8081/inventory-dashboard \
+                        -t http://192.168.142.130:8081/inv \
                         -r zap_report.html \
                         || true
                 '''

@@ -37,8 +37,8 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 sh '''
-                    sudo cp target/*.war /var/lib/tomcat9/webapps/inv.war
-                    sudo systemctl restart tomcat9
+                    sudo cp target/*.war /var/lib/tomcat10/webapps/inv.war
+                    sudo systemctl restart tomcat10
                     sleep 10
                 '''
             }
@@ -46,7 +46,7 @@ pipeline {
 
         stage('Check Application') {
             steps {
-                sh 'curl -f http://192.168.142.130:8081/inv'
+                sh 'curl -f http://192.168.142.130:8081/inv/'
             }
         }
 

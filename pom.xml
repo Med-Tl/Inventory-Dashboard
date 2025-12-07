@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,9 +20,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- ==========================
+         DEPENDENCIES
+    =========================== -->
     <dependencies>
 
-        <!-- ✅ Jakarta Servlet API (Tomcat 10) -->
+        <!-- Jakarta Servlet API (Tomcat 10+) -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -30,7 +33,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ Jakarta JSP API -->
+        <!-- Jakarta JSP API -->
         <dependency>
             <groupId>jakarta.servlet.jsp</groupId>
             <artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -38,14 +41,31 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- PostgreSQL Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
+        <!-- BCrypt for password hashing -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
     </dependencies>
 
+    <!-- ==========================
+         BUILD
+    =========================== -->
     <build>
         <finalName>devops-inventory</finalName>
 
         <plugins>
 
-            <!-- ✅ Java 17 Compiler Plugin -->
+            <!-- Maven Compiler Plugin (Java 17) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -56,13 +76,12 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ WAR Plugin (FIX for your error) -->
+            <!-- WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <!-- No web.xml required -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>

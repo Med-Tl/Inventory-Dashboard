@@ -38,7 +38,7 @@
             margin-bottom: 30px;
         }
 
-        a {
+        a, button {
             display: inline-block;
             text-decoration: none;
             background: #2563eb;
@@ -47,11 +47,27 @@
             border-radius: 8px;
             font-weight: bold;
             transition: 0.3s;
+            border: none;
+            cursor: pointer;
         }
 
-        a:hover {
+        a:hover, button:hover {
             background: #1d4ed8;
             transform: scale(1.05);
+        }
+
+        form {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 15px;
         }
 
         .footer {
@@ -71,6 +87,13 @@
     <a href="${pageContext.request.contextPath}/dashboard">
         Go to Dashboard
     </a>
+
+    <!-- ⭐ ADDED LOGIN FORM ⭐ -->
+    <form action="login" method="post">
+        <input type="text" name="username" placeholder="username" required>
+        <input type="password" name="password" placeholder="password" required>
+        <button type="submit">Login</button>
+    </form>
 
     <div class="footer">
         Built with Jenkins, SonarQube, OWASP ZAP, Prometheus & Grafana

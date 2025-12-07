@@ -21,6 +21,13 @@ pipeline {
             }
         }
 
+        stage('Check Database') {
+            steps {
+                // Removed -it because Jenkins doesn't handle TTY
+                sh 'docker exec inventory-db psql -U inventoryuser -d inventorydb -c "\\dt"'
+            }
+        }
+
         stage('Build & Test') {
             steps {
                 sh 'mvn clean test'

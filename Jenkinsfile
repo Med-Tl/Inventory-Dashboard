@@ -16,7 +16,7 @@ pipeline {
 
         stage('Start Database') {
             steps {
-                sh 'docker-compose up -d --build db' // Only start DB service
+                sh 'docker-compose up -d --force-recreate --build db' // Only start DB service
                 sh 'sleep 15' // wait for DB to initialize
             }
         }

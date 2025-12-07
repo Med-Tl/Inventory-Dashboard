@@ -25,17 +25,20 @@ pipeline {
                 // Wait for DB to initialize
                 sh 'sleep 15'
 
-                // Ensure users table exists and default admin is present
+                // Ensure users table exists and insert admin with BCrypt hash
                 sh '''
                     docker exec inventory-db psql -U inventoryuser -d inventorydb -c "
+                    CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
                     CREATE TABLE IF NOT EXISTS users (
                         id SERIAL PRIMARY KEY,
                         username VARCHAR(50) UNIQUE NOT NULL,
                         password VARCHAR(255) NOT NULL,
                         role VARCHAR(20) NOT NULL
                     );
+
                     INSERT INTO users (username, password, role)
-                    VALUES ('admin', 'admin123', 'ADMIN')
+                    VALUES ('admin', crypt('admin123', gen_salt('bf')), 'ADMIN')
                     ON CONFLICT (username) DO NOTHING;"
                 '''
 

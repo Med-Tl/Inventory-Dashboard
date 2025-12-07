@@ -36,7 +36,7 @@ pipeline {
                     );
 
                     INSERT INTO users (username, password, role)
-                    VALUES ('admin', '$2a$10$7Z6KGa.MS9tb9MGi9JvM3eRFbcu3tbP.mHhC3bR2OkZCtdtg.z1bK', 'ADMIN')
+                    VALUES ('admin', '\\$2a\\$10\\$7Z6KGa.MS9tb9MGi9JvM3eRFbcu3tbP.mHhC3bR2OkZCtdtg.z1bK', 'ADMIN')
                     ON CONFLICT (username) DO UPDATE SET password = EXCLUDED.password;
                     "
                 '''

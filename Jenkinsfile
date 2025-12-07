@@ -14,6 +14,13 @@ pipeline {
             }
         }
 
+        stage('Start Database') {
+            steps {
+                sh 'docker-compose up -d --build db' // Only start DB service
+                sh 'sleep 15' // wait for DB to initialize
+            }
+        }
+
         stage('Build & Test') {
             steps {
                 sh 'mvn clean test'
@@ -36,6 +43,7 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
+                // Option 1: deploy to local Tomcat (existing setup)
                 sh '''
                     sudo cp target/*.war /opt/tomcat/webapps/inv.war
                     sudo systemctl restart tomcat
@@ -64,11 +72,9 @@ pipeline {
 
     post {
         always {
-            // Save WAR file
             archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: false
-
-            // Save OWASP ZAP HTML report
             archiveArtifacts artifacts: 'zap_report.html', allowEmptyArchive: true
         }
     }
 }
+

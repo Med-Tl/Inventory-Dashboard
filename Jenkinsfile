@@ -16,14 +16,30 @@ pipeline {
 
         stage('Start Database') {
             steps {
-                sh 'docker-compose up -d --force-recreate --build db' // Only start DB service
-                sh 'sleep 15' // wait for DB to initialize
-            }
-        }
+                // Remove old container if exists
+                sh 'docker rm -f inventory-db || true'
 
-        stage('Check Database') {
-            steps {
-                // Removed -it because Jenkins doesn't handle TTY
+                // Start DB container (reuse existing volume)
+                sh 'docker-compose up -d --build db'
+
+                // Wait for DB to initialize
+                sh 'sleep 15'
+
+                // Ensure users table exists and default admin is present
+                sh '''
+                    docker exec inventory-db psql -U inventoryuser -d inventorydb -c "
+                    CREATE TABLE IF NOT EXISTS users (
+                        id SERIAL PRIMARY KEY,
+                        username VARCHAR(50) UNIQUE NOT NULL,
+                        password VARCHAR(255) NOT NULL,
+                        role VARCHAR(20) NOT NULL
+                    );
+                    INSERT INTO users (username, password, role)
+                    VALUES ('admin', 'admin123', 'ADMIN')
+                    ON CONFLICT (username) DO NOTHING;"
+                '''
+
+                // Optional: check tables
                 sh 'docker exec inventory-db psql -U inventoryuser -d inventorydb -c "\\dt"'
             }
         }
@@ -50,7 +66,6 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                // Option 1: deploy to local Tomcat (existing setup)
                 sh '''
                     sudo cp target/*.war /opt/tomcat/webapps/inv.war
                     sudo systemctl restart tomcat
@@ -84,4 +99,3 @@ pipeline {
         }
     }
 }
-

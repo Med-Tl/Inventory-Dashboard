@@ -12,7 +12,7 @@ It covers the full lifecycle:
 > 🖥️ All services are hosted on **one Ubuntu Virtual Machine**
 
 ```
-Developer → GitHub → Jenkins → Maven Build & Tests
+Developer → GitHub → Jenkins → BD → Maven Build & Tests
                        ↓
                 SonarQube (SAST)
                        ↓
@@ -25,8 +25,6 @@ Developer → GitHub → Jenkins → Maven Build & Tests
         Prometheus + Node Exporter → Grafana
 ```
 
-📌 *(You can also add a real diagram image later)*
-
 ---
 
 ## 🛠️ Tools & Technologies Used
@@ -37,7 +35,8 @@ Developer → GitHub → Jenkins → Maven Build & Tests
 | Language           | Java 17                            |
 | Build Tool         | Maven                              |
 | CI/CD              | Jenkins                            |
-| Application Server | Apache Tomcat 9                    |
+| Application Server | Apache Tomcat 10                   | 
+| Database           | PostgreSQL (Docker Compose)        |
 | SAST               | SonarQube (Docker)                 |
 | DAST               | OWASP ZAP                          |
 | Containers         | Docker                             |
@@ -49,12 +48,13 @@ Developer → GitHub → Jenkins → Maven Build & Tests
 ## 🔄 Jenkins Pipeline Stages
 
 1. **Checkout** – Fetch source code from GitHub
-2. **Build & Test** – Compile and run tests using Maven
-3. **SonarQube Analysis (SAST)** – Static security analysis
-4. **Package** – Generate WAR file
-5. **Deploy to Tomcat** – Automatic deployment
-6. **Application Check** – Verify app with `curl`
-7. **OWASP ZAP Scan (DAST)** – Dynamic security analysis
+2. **Start Database** – (PostgreSQL)
+3. **Build & Test** – Compile and run tests using Maven
+4. **SonarQube Analysis (SAST)** – Static security analysis
+5. **Package** – Generate WAR file
+6. **Deploy to Tomcat** – Automatic deployment
+7. **Application Check** – Verify app with `curl`
+8. **OWASP ZAP Scan (DAST)** – Dynamic security analysis
 
 ---
 
@@ -68,6 +68,10 @@ Developer → GitHub → Jenkins → Maven Build & Tests
 ### ✅ SonarQube SAST Report
 
 ![SonarQube](images/sonarqube2.png)
+
+### ✅ Inventory Dashboard "Login Page" /inv/index.jsp
+
+![Login](images/login.png)
 
 ### ✅ Inventory Dashboard /inv
 
@@ -184,7 +188,7 @@ docker run -d --name grafana -p 3000:3000 grafana/grafana
 ## ✅ CI/CD Flow Summary
 
 ```
-GitHub → Jenkins → Build & Test → SonarQube (SAST)
+GitHub → Jenkins → Start BD → Build & Test → SonarQube (SAST)
        → Package → Deploy to Tomcat → ZAP (DAST)
        → Prometheus → Grafana
 ```
@@ -212,4 +216,5 @@ GitHub: `@Med-Tl`
 ---
 
 ✅ This project is **job-ready and interview-ready**.
+
 

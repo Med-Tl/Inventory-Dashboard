@@ -71,7 +71,11 @@ Developer → GitHub → Jenkins → BD → Maven Build & Tests
 
 ### ✅ Inventory Dashboard "Login Page" /inv/index.jsp
 
- **Username** : "admin" **Password** : admin  
+ 
+ --------------------------------------------------
+ **Username** : "admin" **Password** : "admin123"
+ --------------------------------------------------
+  
 ![Login](images/login.png)
 
 ### ✅ Inventory Dashboard /inv
